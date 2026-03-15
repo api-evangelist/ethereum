@@ -1,0 +1,364 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "eth": "https://ethereum.org/ns/",
+    "ethon": "http://ethon.consensys.net/",
+    "blondie": "http://w3id.org/sioc/ns#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+
+    "Block": {
+      "@id": "ethon:Block",
+      "@context": {
+        "number": {
+          "@id": "ethon:blockNumber",
+          "@type": "xsd:hexBinary"
+        },
+        "hash": {
+          "@id": "ethon:blockHash",
+          "@type": "xsd:hexBinary"
+        },
+        "parentHash": {
+          "@id": "ethon:parentBlockHash",
+          "@type": "xsd:hexBinary"
+        },
+        "timestamp": {
+          "@id": "dcterms:created",
+          "@type": "xsd:hexBinary"
+        },
+        "miner": {
+          "@id": "ethon:hasBeneficiary",
+          "@type": "@id"
+        },
+        "gasLimit": {
+          "@id": "ethon:blockGasLimit",
+          "@type": "xsd:hexBinary"
+        },
+        "gasUsed": {
+          "@id": "ethon:blockGasUsed",
+          "@type": "xsd:hexBinary"
+        },
+        "difficulty": {
+          "@id": "ethon:blockDifficulty",
+          "@type": "xsd:hexBinary"
+        },
+        "totalDifficulty": {
+          "@id": "ethon:totalBlockDifficulty",
+          "@type": "xsd:hexBinary"
+        },
+        "size": {
+          "@id": "ethon:blockSize",
+          "@type": "xsd:hexBinary"
+        },
+        "stateRoot": {
+          "@id": "ethon:stateRoot",
+          "@type": "xsd:hexBinary"
+        },
+        "transactionsRoot": {
+          "@id": "ethon:transactionsRoot",
+          "@type": "xsd:hexBinary"
+        },
+        "receiptsRoot": {
+          "@id": "ethon:receiptsRoot",
+          "@type": "xsd:hexBinary"
+        },
+        "logsBloom": {
+          "@id": "ethon:logsBloom",
+          "@type": "xsd:hexBinary"
+        },
+        "extraData": {
+          "@id": "ethon:extraData",
+          "@type": "xsd:hexBinary"
+        },
+        "baseFeePerGas": {
+          "@id": "ethon:baseFeePerGas",
+          "@type": "xsd:hexBinary"
+        },
+        "transactions": {
+          "@id": "ethon:containsTransaction",
+          "@container": "@list"
+        },
+        "uncles": {
+          "@id": "ethon:hasUncle",
+          "@container": "@set"
+        },
+        "withdrawals": {
+          "@id": "eth:hasWithdrawal",
+          "@container": "@list"
+        }
+      }
+    },
+
+    "Transaction": {
+      "@id": "ethon:Tx",
+      "@context": {
+        "hash": {
+          "@id": "ethon:txHash",
+          "@type": "xsd:hexBinary"
+        },
+        "from": {
+          "@id": "ethon:from",
+          "@type": "@id"
+        },
+        "to": {
+          "@id": "ethon:to",
+          "@type": "@id"
+        },
+        "value": {
+          "@id": "ethon:value",
+          "@type": "xsd:hexBinary"
+        },
+        "gas": {
+          "@id": "ethon:txGasLimit",
+          "@type": "xsd:hexBinary"
+        },
+        "gasPrice": {
+          "@id": "ethon:txGasPrice",
+          "@type": "xsd:hexBinary"
+        },
+        "maxFeePerGas": {
+          "@id": "ethon:maxFeePerGas",
+          "@type": "xsd:hexBinary"
+        },
+        "maxPriorityFeePerGas": {
+          "@id": "ethon:maxPriorityFeePerGas",
+          "@type": "xsd:hexBinary"
+        },
+        "nonce": {
+          "@id": "ethon:txNonce",
+          "@type": "xsd:hexBinary"
+        },
+        "input": {
+          "@id": "ethon:txInputData",
+          "@type": "xsd:hexBinary"
+        },
+        "blockHash": {
+          "@id": "ethon:blockHash",
+          "@type": "xsd:hexBinary"
+        },
+        "blockNumber": {
+          "@id": "ethon:blockNumber",
+          "@type": "xsd:hexBinary"
+        },
+        "transactionIndex": {
+          "@id": "ethon:txIndex",
+          "@type": "xsd:hexBinary"
+        },
+        "type": {
+          "@id": "ethon:txType",
+          "@type": "xsd:hexBinary"
+        },
+        "chainId": {
+          "@id": "ethon:chainId",
+          "@type": "xsd:hexBinary"
+        },
+        "accessList": {
+          "@id": "ethon:hasAccessList",
+          "@container": "@list"
+        },
+        "v": {
+          "@id": "ethon:v",
+          "@type": "xsd:hexBinary"
+        },
+        "r": {
+          "@id": "ethon:r",
+          "@type": "xsd:hexBinary"
+        },
+        "s": {
+          "@id": "ethon:s",
+          "@type": "xsd:hexBinary"
+        }
+      }
+    },
+
+    "TransactionReceipt": {
+      "@id": "ethon:TxReceipt",
+      "@context": {
+        "transactionHash": {
+          "@id": "ethon:txHash",
+          "@type": "xsd:hexBinary"
+        },
+        "blockHash": {
+          "@id": "ethon:blockHash",
+          "@type": "xsd:hexBinary"
+        },
+        "blockNumber": {
+          "@id": "ethon:blockNumber",
+          "@type": "xsd:hexBinary"
+        },
+        "from": {
+          "@id": "ethon:from",
+          "@type": "@id"
+        },
+        "to": {
+          "@id": "ethon:to",
+          "@type": "@id"
+        },
+        "gasUsed": {
+          "@id": "ethon:txGasUsed",
+          "@type": "xsd:hexBinary"
+        },
+        "cumulativeGasUsed": {
+          "@id": "ethon:cumulativeGasUsed",
+          "@type": "xsd:hexBinary"
+        },
+        "effectiveGasPrice": {
+          "@id": "ethon:effectiveGasPrice",
+          "@type": "xsd:hexBinary"
+        },
+        "contractAddress": {
+          "@id": "ethon:createdContract",
+          "@type": "@id"
+        },
+        "status": {
+          "@id": "ethon:txStatus",
+          "@type": "xsd:hexBinary"
+        },
+        "logs": {
+          "@id": "ethon:hasLog",
+          "@container": "@list"
+        },
+        "logsBloom": {
+          "@id": "ethon:logsBloom",
+          "@type": "xsd:hexBinary"
+        },
+        "type": {
+          "@id": "ethon:txType",
+          "@type": "xsd:hexBinary"
+        }
+      }
+    },
+
+    "Log": {
+      "@id": "ethon:LogEntry",
+      "@context": {
+        "address": {
+          "@id": "ethon:logEmitter",
+          "@type": "@id"
+        },
+        "data": {
+          "@id": "ethon:logData",
+          "@type": "xsd:hexBinary"
+        },
+        "topics": {
+          "@id": "ethon:hasTopic",
+          "@container": "@list"
+        },
+        "logIndex": {
+          "@id": "ethon:logIndex",
+          "@type": "xsd:hexBinary"
+        },
+        "transactionHash": {
+          "@id": "ethon:txHash",
+          "@type": "xsd:hexBinary"
+        },
+        "transactionIndex": {
+          "@id": "ethon:txIndex",
+          "@type": "xsd:hexBinary"
+        },
+        "blockHash": {
+          "@id": "ethon:blockHash",
+          "@type": "xsd:hexBinary"
+        },
+        "blockNumber": {
+          "@id": "ethon:blockNumber",
+          "@type": "xsd:hexBinary"
+        },
+        "removed": {
+          "@id": "ethon:isRemoved",
+          "@type": "xsd:boolean"
+        }
+      }
+    },
+
+    "Withdrawal": {
+      "@id": "eth:Withdrawal",
+      "@context": {
+        "index": {
+          "@id": "eth:withdrawalIndex",
+          "@type": "xsd:hexBinary"
+        },
+        "validatorIndex": {
+          "@id": "eth:validatorIndex",
+          "@type": "xsd:hexBinary"
+        },
+        "address": {
+          "@id": "eth:withdrawalRecipient",
+          "@type": "@id"
+        },
+        "amount": {
+          "@id": "eth:withdrawalAmount",
+          "@type": "xsd:hexBinary"
+        }
+      }
+    },
+
+    "AccessListEntry": {
+      "@id": "ethon:AccessListEntry",
+      "@context": {
+        "address": {
+          "@id": "ethon:accessedAddress",
+          "@type": "@id"
+        },
+        "storageKeys": {
+          "@id": "ethon:accessedStorageKey",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "EthereumNode": {
+      "@id": "eth:Node",
+      "@context": {
+        "clientVersion": {
+          "@id": "schema:softwareVersion",
+          "@type": "xsd:string"
+        },
+        "networkId": {
+          "@id": "eth:networkId",
+          "@type": "xsd:string"
+        },
+        "chainId": {
+          "@id": "ethon:chainId",
+          "@type": "xsd:hexBinary"
+        },
+        "isListening": {
+          "@id": "eth:isListening",
+          "@type": "xsd:boolean"
+        },
+        "peerCount": {
+          "@id": "eth:peerCount",
+          "@type": "xsd:hexBinary"
+        }
+      }
+    },
+
+    "Account": {
+      "@id": "ethon:Account",
+      "@context": {
+        "address": {
+          "@id": "ethon:address",
+          "@type": "@id"
+        },
+        "balance": {
+          "@id": "ethon:accountBalance",
+          "@type": "xsd:hexBinary"
+        },
+        "nonce": {
+          "@id": "ethon:accountNonce",
+          "@type": "xsd:hexBinary"
+        },
+        "code": {
+          "@id": "ethon:accountCode",
+          "@type": "xsd:hexBinary"
+        },
+        "storageRoot": {
+          "@id": "ethon:accountStorageRoot",
+          "@type": "xsd:hexBinary"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,452 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schema.ethereum.org/json-rpc/ethereum-data-models.json",
+  "title": "Ethereum Data Models",
+  "description": "JSON Schema definitions for core Ethereum blockchain data structures used in JSON-RPC responses.",
+  "$defs": {
+    "HexQuantity": {
+      "type": "string",
+      "pattern": "^0x([1-9a-fA-F][0-9a-fA-F]*|0)$",
+      "description": "A hex-encoded unsigned integer quantity. Must be prefixed with 0x. No leading zeros except for 0x0."
+    },
+    "HexData": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]*$",
+      "description": "Hex-encoded arbitrary data. Must be prefixed with 0x. Even number of hex digits."
+    },
+    "Address": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{40}$",
+      "description": "A 20-byte Ethereum address, hex-encoded with 0x prefix."
+    },
+    "Hash32": {
+      "type": "string",
+      "pattern": "^0x[0-9a-fA-F]{64}$",
+      "description": "A 32-byte hash (Keccak-256), hex-encoded with 0x prefix."
+    },
+    "BlockTag": {
+      "type": "string",
+      "enum": ["latest", "earliest", "pending", "safe", "finalized"],
+      "description": "A named block tag for specifying block position."
+    },
+    "BlockIdentifier": {
+      "oneOf": [
+        { "$ref": "#/$defs/HexQuantity" },
+        { "$ref": "#/$defs/BlockTag" }
+      ],
+      "description": "A block number (hex) or block tag."
+    },
+    "Transaction": {
+      "type": "object",
+      "description": "An Ethereum transaction as returned by JSON-RPC methods.",
+      "required": ["hash", "from", "nonce", "gas", "input", "value", "v", "r", "s"],
+      "properties": {
+        "blockHash": {
+          "oneOf": [{ "$ref": "#/$defs/Hash32" }, { "type": "null" }],
+          "description": "Hash of the containing block, or null if pending."
+        },
+        "blockNumber": {
+          "oneOf": [{ "$ref": "#/$defs/HexQuantity" }, { "type": "null" }],
+          "description": "Block number, or null if pending."
+        },
+        "from": {
+          "$ref": "#/$defs/Address",
+          "description": "Sender address."
+        },
+        "gas": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Gas limit provided by the sender."
+        },
+        "gasPrice": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Gas price in wei (legacy and Type 0 transactions)."
+        },
+        "maxFeePerGas": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Maximum total fee per gas (EIP-1559)."
+        },
+        "maxPriorityFeePerGas": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Maximum priority fee per gas (EIP-1559)."
+        },
+        "hash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Transaction hash."
+        },
+        "input": {
+          "$ref": "#/$defs/HexData",
+          "description": "Call data sent with the transaction."
+        },
+        "nonce": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Number of prior transactions from the sender."
+        },
+        "to": {
+          "oneOf": [{ "$ref": "#/$defs/Address" }, { "type": "null" }],
+          "description": "Recipient address, or null for contract creation."
+        },
+        "transactionIndex": {
+          "oneOf": [{ "$ref": "#/$defs/HexQuantity" }, { "type": "null" }],
+          "description": "Index position in the block, or null if pending."
+        },
+        "value": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Value transferred in wei."
+        },
+        "type": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Transaction type (0x0 legacy, 0x1 access list, 0x2 EIP-1559, 0x3 blob)."
+        },
+        "accessList": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/AccessListEntry" },
+          "description": "EIP-2930 access list."
+        },
+        "chainId": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Chain ID (EIP-155)."
+        },
+        "v": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "ECDSA recovery ID."
+        },
+        "r": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "ECDSA signature component r."
+        },
+        "s": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "ECDSA signature component s."
+        },
+        "maxFeePerBlobGas": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Maximum fee per blob gas (EIP-4844)."
+        },
+        "blobVersionedHashes": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Hash32" },
+          "description": "Blob versioned hashes (EIP-4844)."
+        }
+      }
+    },
+    "Block": {
+      "type": "object",
+      "description": "An Ethereum block as returned by eth_getBlockByNumber or eth_getBlockByHash.",
+      "required": ["number", "hash", "parentHash", "timestamp", "gasLimit", "gasUsed"],
+      "properties": {
+        "number": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Block number."
+        },
+        "hash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Block hash."
+        },
+        "parentHash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Parent block hash."
+        },
+        "nonce": {
+          "$ref": "#/$defs/HexData",
+          "description": "Proof-of-work nonce (zeroed post-merge)."
+        },
+        "sha3Uncles": {
+          "$ref": "#/$defs/Hash32",
+          "description": "SHA3 of the uncles data."
+        },
+        "logsBloom": {
+          "$ref": "#/$defs/HexData",
+          "description": "Bloom filter for log entries (256 bytes)."
+        },
+        "transactionsRoot": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Root of the transaction trie."
+        },
+        "stateRoot": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Root of the account state trie."
+        },
+        "receiptsRoot": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Root of the receipts trie."
+        },
+        "miner": {
+          "$ref": "#/$defs/Address",
+          "description": "Address of the block fee recipient."
+        },
+        "difficulty": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Block difficulty (zeroed post-merge)."
+        },
+        "totalDifficulty": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Cumulative chain difficulty."
+        },
+        "extraData": {
+          "$ref": "#/$defs/HexData",
+          "description": "Arbitrary extra data."
+        },
+        "size": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Block size in bytes."
+        },
+        "gasLimit": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Maximum gas allowed in this block."
+        },
+        "gasUsed": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Total gas used by all transactions."
+        },
+        "timestamp": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Unix timestamp of the block."
+        },
+        "transactions": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/$defs/Hash32" },
+              { "$ref": "#/$defs/Transaction" }
+            ]
+          },
+          "description": "Transaction hashes or full objects depending on the request parameter."
+        },
+        "uncles": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Hash32" },
+          "description": "Uncle block hashes."
+        },
+        "baseFeePerGas": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Base fee per gas (EIP-1559, post-London)."
+        },
+        "withdrawalsRoot": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Root of the withdrawals trie (post-Shanghai)."
+        },
+        "withdrawals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Withdrawal" },
+          "description": "Validator withdrawals (post-Shanghai)."
+        },
+        "blobGasUsed": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Total blob gas consumed (EIP-4844)."
+        },
+        "excessBlobGas": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Excess blob gas (EIP-4844)."
+        },
+        "parentBeaconBlockRoot": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Parent beacon block root (EIP-4788)."
+        }
+      }
+    },
+    "TransactionReceipt": {
+      "type": "object",
+      "description": "The result of executing a transaction, returned by eth_getTransactionReceipt.",
+      "required": ["transactionHash", "blockHash", "blockNumber", "from", "gasUsed", "logs", "status"],
+      "properties": {
+        "transactionHash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Transaction hash."
+        },
+        "transactionIndex": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Index in the block."
+        },
+        "blockHash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Containing block hash."
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Containing block number."
+        },
+        "from": {
+          "$ref": "#/$defs/Address",
+          "description": "Sender address."
+        },
+        "to": {
+          "oneOf": [{ "$ref": "#/$defs/Address" }, { "type": "null" }],
+          "description": "Recipient address, or null for contract creation."
+        },
+        "cumulativeGasUsed": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Total gas used in the block up to and including this transaction."
+        },
+        "effectiveGasPrice": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Actual gas price paid per unit of gas."
+        },
+        "gasUsed": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Gas consumed by this transaction."
+        },
+        "contractAddress": {
+          "oneOf": [{ "$ref": "#/$defs/Address" }, { "type": "null" }],
+          "description": "Contract address created, or null if not a deployment."
+        },
+        "logs": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Log" },
+          "description": "Event logs emitted during execution."
+        },
+        "logsBloom": {
+          "$ref": "#/$defs/HexData",
+          "description": "Bloom filter for log entries."
+        },
+        "type": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Transaction type."
+        },
+        "status": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Execution status: 0x1 for success, 0x0 for failure."
+        },
+        "blobGasUsed": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Blob gas consumed (EIP-4844)."
+        },
+        "blobGasPrice": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Blob gas price paid (EIP-4844)."
+        }
+      }
+    },
+    "Log": {
+      "type": "object",
+      "description": "An event log entry emitted by a smart contract during transaction execution.",
+      "required": ["address", "data", "topics"],
+      "properties": {
+        "removed": {
+          "type": "boolean",
+          "description": "True if the log was removed due to a chain reorganization."
+        },
+        "logIndex": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Index of the log in the block."
+        },
+        "transactionIndex": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Transaction index in the block."
+        },
+        "transactionHash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Hash of the transaction that produced this log."
+        },
+        "blockHash": {
+          "$ref": "#/$defs/Hash32",
+          "description": "Hash of the containing block."
+        },
+        "blockNumber": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Number of the containing block."
+        },
+        "address": {
+          "$ref": "#/$defs/Address",
+          "description": "Contract address that emitted the event."
+        },
+        "data": {
+          "$ref": "#/$defs/HexData",
+          "description": "ABI-encoded non-indexed event parameters."
+        },
+        "topics": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Hash32" },
+          "maxItems": 4,
+          "description": "Indexed event parameters. topics[0] is the Keccak-256 event signature hash."
+        }
+      }
+    },
+    "AccessListEntry": {
+      "type": "object",
+      "description": "An EIP-2930 access list entry specifying an address and its accessed storage slots.",
+      "required": ["address", "storageKeys"],
+      "properties": {
+        "address": {
+          "$ref": "#/$defs/Address",
+          "description": "Account address."
+        },
+        "storageKeys": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Hash32" },
+          "description": "Storage slot keys accessed."
+        }
+      }
+    },
+    "Withdrawal": {
+      "type": "object",
+      "description": "A validator withdrawal from the beacon chain (post-Shanghai/Capella).",
+      "required": ["index", "validatorIndex", "address", "amount"],
+      "properties": {
+        "index": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Monotonically increasing withdrawal index."
+        },
+        "validatorIndex": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Index of the validator."
+        },
+        "address": {
+          "$ref": "#/$defs/Address",
+          "description": "Withdrawal recipient address."
+        },
+        "amount": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Withdrawal amount in Gwei."
+        }
+      }
+    },
+    "SyncStatus": {
+      "type": "object",
+      "description": "Sync status returned by eth_syncing when the node is syncing.",
+      "required": ["startingBlock", "currentBlock", "highestBlock"],
+      "properties": {
+        "startingBlock": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Block number where sync started."
+        },
+        "currentBlock": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Current block being processed."
+        },
+        "highestBlock": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Estimated highest known block."
+        }
+      }
+    },
+    "FeeHistory": {
+      "type": "object",
+      "description": "Historical gas fee data returned by eth_feeHistory.",
+      "required": ["oldestBlock", "baseFeePerGas", "gasUsedRatio"],
+      "properties": {
+        "oldestBlock": {
+          "$ref": "#/$defs/HexQuantity",
+          "description": "Oldest block in the returned range."
+        },
+        "baseFeePerGas": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/HexQuantity" },
+          "description": "Base fee per gas for each block (includes next block)."
+        },
+        "gasUsedRatio": {
+          "type": "array",
+          "items": { "type": "number", "minimum": 0, "maximum": 1 },
+          "description": "Ratio of gas used to gas limit for each block."
+        },
+        "reward": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/HexQuantity" }
+          },
+          "description": "Priority fee percentile values for each block."
+        }
+      }
+    }
+  }
+}

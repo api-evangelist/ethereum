@@ -1,0 +1,735 @@
+openapi: 3.0.3
+info:
+  title: Ethereum JSON-RPC API
+  description: >-
+    The Ethereum JSON-RPC API is the standard interface for interacting with
+    Ethereum nodes. It provides methods for querying blockchain state, sending
+    transactions, managing accounts, and interacting with smart contracts.
+    All methods follow the JSON-RPC 2.0 specification over HTTP or WebSocket.
+  version: 1.0.0
+  contact:
+    name: Ethereum Foundation
+    url: https://ethereum.org
+  license:
+    name: CC0-1.0
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+  - url: http://localhost:8545
+    description: Local Ethereum node (default Geth/Nethermind/Besu port)
+  - url: https://mainnet.infura.io/v3/{apiKey}
+    description: Infura Mainnet
+    variables:
+      apiKey:
+        default: YOUR_API_KEY
+        description: Infura project API key
+paths:
+  /:
+    post:
+      summary: JSON-RPC endpoint
+      description: >-
+        All Ethereum JSON-RPC methods are invoked via POST to the root endpoint.
+        The method name is specified in the JSON-RPC request body.
+      operationId: jsonRpcCall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+            examples:
+              eth_blockNumber:
+                summary: Get the latest block number
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_blockNumber
+                  params: []
+                  id: 1
+              eth_getBalance:
+                summary: Get account balance
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getBalance
+                  params:
+                    - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+                    - latest
+                  id: 1
+              eth_call:
+                summary: Execute a call without creating a transaction
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_call
+                  params:
+                    - to: '0xContractAddress'
+                      data: '0xFunctionSelector'
+                    - latest
+                  id: 1
+              eth_sendRawTransaction:
+                summary: Send a signed transaction
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_sendRawTransaction
+                  params:
+                    - '0xSignedTransactionData'
+                  id: 1
+              eth_getBlockByNumber:
+                summary: Get block by number
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getBlockByNumber
+                  params:
+                    - '0x1b4'
+                    - true
+                  id: 1
+              eth_getTransactionByHash:
+                summary: Get transaction by hash
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getTransactionByHash
+                  params:
+                    - '0xTransactionHash'
+                  id: 1
+              eth_getTransactionReceipt:
+                summary: Get transaction receipt
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getTransactionReceipt
+                  params:
+                    - '0xTransactionHash'
+                  id: 1
+              eth_getLogs:
+                summary: Get logs matching filter
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getLogs
+                  params:
+                    - fromBlock: '0x1'
+                      toBlock: latest
+                      address: '0xContractAddress'
+                      topics:
+                        - '0xEventSignature'
+                  id: 1
+              eth_estimateGas:
+                summary: Estimate gas for a transaction
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_estimateGas
+                  params:
+                    - to: '0xContractAddress'
+                      data: '0xFunctionSelector'
+                  id: 1
+              eth_gasPrice:
+                summary: Get current gas price
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_gasPrice
+                  params: []
+                  id: 1
+              eth_chainId:
+                summary: Get the chain ID
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_chainId
+                  params: []
+                  id: 1
+              eth_getCode:
+                summary: Get contract bytecode
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getCode
+                  params:
+                    - '0xContractAddress'
+                    - latest
+                  id: 1
+              eth_getStorageAt:
+                summary: Get storage value at position
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getStorageAt
+                  params:
+                    - '0xContractAddress'
+                    - '0x0'
+                    - latest
+                  id: 1
+              eth_getTransactionCount:
+                summary: Get account nonce
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getTransactionCount
+                  params:
+                    - '0xAddress'
+                    - latest
+                  id: 1
+              eth_feeHistory:
+                summary: Get historical fee data
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_feeHistory
+                  params:
+                    - '0x4'
+                    - latest
+                    - [25, 75]
+                  id: 1
+              eth_maxPriorityFeePerGas:
+                summary: Get suggested priority fee
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_maxPriorityFeePerGas
+                  params: []
+                  id: 1
+              net_version:
+                summary: Get the network ID
+                value:
+                  jsonrpc: '2.0'
+                  method: net_version
+                  params: []
+                  id: 67
+              net_listening:
+                summary: Check if node is listening for connections
+                value:
+                  jsonrpc: '2.0'
+                  method: net_listening
+                  params: []
+                  id: 67
+              net_peerCount:
+                summary: Get number of connected peers
+                value:
+                  jsonrpc: '2.0'
+                  method: net_peerCount
+                  params: []
+                  id: 74
+              web3_clientVersion:
+                summary: Get the client version
+                value:
+                  jsonrpc: '2.0'
+                  method: web3_clientVersion
+                  params: []
+                  id: 67
+              web3_sha3:
+                summary: Compute Keccak-256 hash
+                value:
+                  jsonrpc: '2.0'
+                  method: web3_sha3
+                  params:
+                    - '0x68656c6c6f20776f726c64'
+                  id: 64
+      responses:
+        '200':
+          description: JSON-RPC response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+              examples:
+                eth_blockNumber:
+                  summary: Block number response
+                  value:
+                    jsonrpc: '2.0'
+                    id: 1
+                    result: '0x10d4f'
+                eth_getBalance:
+                  summary: Balance response (in wei)
+                  value:
+                    jsonrpc: '2.0'
+                    id: 1
+                    result: '0x0234c8a3397aab58'
+                error:
+                  summary: Error response
+                  value:
+                    jsonrpc: '2.0'
+                    id: 1
+                    error:
+                      code: -32601
+                      message: Method not found
+components:
+  schemas:
+    JsonRpcRequest:
+      type: object
+      required:
+        - jsonrpc
+        - method
+        - id
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+            - '2.0'
+          description: JSON-RPC protocol version
+        method:
+          type: string
+          description: >-
+            The RPC method name. Ethereum methods include eth_*, net_*, and
+            web3_* namespaces.
+          enum:
+            - web3_clientVersion
+            - web3_sha3
+            - net_version
+            - net_listening
+            - net_peerCount
+            - eth_protocolVersion
+            - eth_syncing
+            - eth_coinbase
+            - eth_chainId
+            - eth_mining
+            - eth_hashrate
+            - eth_gasPrice
+            - eth_maxPriorityFeePerGas
+            - eth_feeHistory
+            - eth_accounts
+            - eth_blockNumber
+            - eth_getBalance
+            - eth_getStorageAt
+            - eth_getTransactionCount
+            - eth_getBlockTransactionCountByHash
+            - eth_getBlockTransactionCountByNumber
+            - eth_getUncleCountByBlockHash
+            - eth_getUncleCountByBlockNumber
+            - eth_getCode
+            - eth_sign
+            - eth_signTransaction
+            - eth_sendTransaction
+            - eth_sendRawTransaction
+            - eth_call
+            - eth_estimateGas
+            - eth_getBlockByHash
+            - eth_getBlockByNumber
+            - eth_getTransactionByHash
+            - eth_getTransactionByBlockHashAndIndex
+            - eth_getTransactionByBlockNumberAndIndex
+            - eth_getTransactionReceipt
+            - eth_getUncleByBlockHashAndIndex
+            - eth_getUncleByBlockNumberAndIndex
+            - eth_newFilter
+            - eth_newBlockFilter
+            - eth_newPendingTransactionFilter
+            - eth_uninstallFilter
+            - eth_getFilterChanges
+            - eth_getFilterLogs
+            - eth_getLogs
+            - eth_createAccessList
+        params:
+          type: array
+          description: Method parameters
+          items: {}
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+          description: Request identifier
+    JsonRpcResponse:
+      type: object
+      required:
+        - jsonrpc
+        - id
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+            - '2.0'
+        id:
+          oneOf:
+            - type: integer
+            - type: string
+        result:
+          description: >-
+            The result of the RPC call. Type varies by method. Quantities are
+            hex-encoded integers. Data is hex-encoded bytes.
+        error:
+          $ref: '#/components/schemas/JsonRpcError'
+    JsonRpcError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          description: Error code
+        message:
+          type: string
+          description: Error message
+        data:
+          description: Additional error data
+    Block:
+      type: object
+      description: An Ethereum block
+      properties:
+        number:
+          type: string
+          description: Block number (hex-encoded)
+        hash:
+          type: string
+          description: Block hash (32 bytes)
+        parentHash:
+          type: string
+          description: Parent block hash
+        nonce:
+          type: string
+          description: Proof-of-work nonce (legacy, zeroed post-merge)
+        sha3Uncles:
+          type: string
+          description: SHA3 of the uncles data
+        logsBloom:
+          type: string
+          description: Bloom filter for light clients (256 bytes)
+        transactionsRoot:
+          type: string
+          description: Root of the transaction trie
+        stateRoot:
+          type: string
+          description: Root of the state trie
+        receiptsRoot:
+          type: string
+          description: Root of the receipts trie
+        miner:
+          type: string
+          description: Address of the beneficiary (fee recipient)
+        difficulty:
+          type: string
+          description: Difficulty (hex, zeroed post-merge)
+        totalDifficulty:
+          type: string
+          description: Total chain difficulty up to this block
+        extraData:
+          type: string
+          description: Extra data field
+        size:
+          type: string
+          description: Block size in bytes (hex)
+        gasLimit:
+          type: string
+          description: Maximum gas allowed (hex)
+        gasUsed:
+          type: string
+          description: Total gas used by all transactions (hex)
+        timestamp:
+          type: string
+          description: Unix timestamp (hex)
+        transactions:
+          type: array
+          description: Transaction hashes or full transaction objects
+          items:
+            oneOf:
+              - type: string
+              - $ref: '#/components/schemas/Transaction'
+        uncles:
+          type: array
+          description: Uncle block hashes
+          items:
+            type: string
+        baseFeePerGas:
+          type: string
+          description: Base fee per gas (hex, EIP-1559)
+        withdrawalsRoot:
+          type: string
+          description: Root of the withdrawals trie (post-Shanghai)
+        withdrawals:
+          type: array
+          description: Validator withdrawals (post-Shanghai)
+          items:
+            $ref: '#/components/schemas/Withdrawal'
+        blobGasUsed:
+          type: string
+          description: Total blob gas used (hex, EIP-4844)
+        excessBlobGas:
+          type: string
+          description: Excess blob gas (hex, EIP-4844)
+        parentBeaconBlockRoot:
+          type: string
+          description: Parent beacon block root (EIP-4788)
+    Transaction:
+      type: object
+      description: An Ethereum transaction
+      properties:
+        blockHash:
+          type: string
+          description: Hash of the block containing this transaction
+          nullable: true
+        blockNumber:
+          type: string
+          description: Block number (hex, null when pending)
+          nullable: true
+        from:
+          type: string
+          description: Sender address (20 bytes)
+        gas:
+          type: string
+          description: Gas provided (hex)
+        gasPrice:
+          type: string
+          description: Gas price in wei (hex, legacy and Type 0)
+        maxFeePerGas:
+          type: string
+          description: Max fee per gas (hex, EIP-1559)
+        maxPriorityFeePerGas:
+          type: string
+          description: Max priority fee per gas (hex, EIP-1559)
+        hash:
+          type: string
+          description: Transaction hash (32 bytes)
+        input:
+          type: string
+          description: Contract call data (hex)
+        nonce:
+          type: string
+          description: Sender nonce (hex)
+        to:
+          type: string
+          description: Recipient address (null for contract creation)
+          nullable: true
+        transactionIndex:
+          type: string
+          description: Index in the block (hex, null when pending)
+          nullable: true
+        value:
+          type: string
+          description: Value transferred in wei (hex)
+        type:
+          type: string
+          description: >-
+            Transaction type (0x0 legacy, 0x1 access list, 0x2 EIP-1559,
+            0x3 blob)
+        accessList:
+          type: array
+          description: Access list (EIP-2930)
+          items:
+            $ref: '#/components/schemas/AccessListEntry'
+        chainId:
+          type: string
+          description: Chain ID (hex)
+        v:
+          type: string
+          description: ECDSA recovery id (hex)
+        r:
+          type: string
+          description: ECDSA signature r (hex)
+        s:
+          type: string
+          description: ECDSA signature s (hex)
+        maxFeePerBlobGas:
+          type: string
+          description: Max fee per blob gas (hex, EIP-4844)
+        blobVersionedHashes:
+          type: array
+          description: Blob versioned hashes (EIP-4844)
+          items:
+            type: string
+    TransactionReceipt:
+      type: object
+      description: Transaction execution receipt
+      properties:
+        transactionHash:
+          type: string
+          description: Transaction hash
+        transactionIndex:
+          type: string
+          description: Index in the block (hex)
+        blockHash:
+          type: string
+          description: Block hash
+        blockNumber:
+          type: string
+          description: Block number (hex)
+        from:
+          type: string
+          description: Sender address
+        to:
+          type: string
+          description: Recipient address (null for contract creation)
+          nullable: true
+        cumulativeGasUsed:
+          type: string
+          description: Total gas used in the block up to this transaction (hex)
+        effectiveGasPrice:
+          type: string
+          description: Actual gas price paid (hex)
+        gasUsed:
+          type: string
+          description: Gas used by this transaction (hex)
+        contractAddress:
+          type: string
+          description: Created contract address (null if not a deployment)
+          nullable: true
+        logs:
+          type: array
+          description: Log entries emitted by this transaction
+          items:
+            $ref: '#/components/schemas/Log'
+        logsBloom:
+          type: string
+          description: Bloom filter (256 bytes)
+        type:
+          type: string
+          description: Transaction type (hex)
+        status:
+          type: string
+          description: Status (0x1 success, 0x0 failure)
+        blobGasUsed:
+          type: string
+          description: Blob gas used (hex, EIP-4844)
+        blobGasPrice:
+          type: string
+          description: Blob gas price (hex, EIP-4844)
+    Log:
+      type: object
+      description: An event log entry
+      properties:
+        removed:
+          type: boolean
+          description: True if log was removed due to chain reorganization
+        logIndex:
+          type: string
+          description: Log index in the block (hex)
+        transactionIndex:
+          type: string
+          description: Transaction index in the block (hex)
+        transactionHash:
+          type: string
+          description: Transaction hash
+        blockHash:
+          type: string
+          description: Block hash
+        blockNumber:
+          type: string
+          description: Block number (hex)
+        address:
+          type: string
+          description: Contract address that emitted the log
+        data:
+          type: string
+          description: Non-indexed event arguments (hex)
+        topics:
+          type: array
+          description: >-
+            Indexed event arguments. topics[0] is the event signature hash.
+            Up to 3 additional indexed parameters.
+          items:
+            type: string
+          maxItems: 4
+    AccessListEntry:
+      type: object
+      description: An EIP-2930 access list entry
+      properties:
+        address:
+          type: string
+          description: Account address
+        storageKeys:
+          type: array
+          description: Storage slot keys
+          items:
+            type: string
+    Withdrawal:
+      type: object
+      description: A validator withdrawal (post-Shanghai)
+      properties:
+        index:
+          type: string
+          description: Withdrawal index (hex)
+        validatorIndex:
+          type: string
+          description: Validator index (hex)
+        address:
+          type: string
+          description: Recipient address
+        amount:
+          type: string
+          description: Amount in Gwei (hex)
+    FilterObject:
+      type: object
+      description: Log filter parameters for eth_getLogs and eth_newFilter
+      properties:
+        fromBlock:
+          type: string
+          description: Start block (hex or tag - latest, earliest, pending)
+        toBlock:
+          type: string
+          description: End block (hex or tag)
+        address:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Contract address(es) to filter
+        topics:
+          type: array
+          description: >-
+            Topic filters. Each position can be a single topic, an array of
+            OR-matched topics, or null for wildcard.
+          items:
+            oneOf:
+              - type: string
+              - type: array
+                items:
+                  type: string
+              - type: 'null'
+          maxItems: 4
+        blockHash:
+          type: string
+          description: >-
+            Restrict to a single block (mutually exclusive with
+            fromBlock/toBlock)
+    CallObject:
+      type: object
+      description: Transaction call parameters for eth_call and eth_estimateGas
+      properties:
+        from:
+          type: string
+          description: Sender address
+        to:
+          type: string
+          description: Target contract address
+        gas:
+          type: string
+          description: Gas limit (hex)
+        gasPrice:
+          type: string
+          description: Gas price (hex)
+        maxFeePerGas:
+          type: string
+          description: Max fee per gas (hex, EIP-1559)
+        maxPriorityFeePerGas:
+          type: string
+          description: Max priority fee (hex, EIP-1559)
+        value:
+          type: string
+          description: Value in wei (hex)
+        data:
+          type: string
+          description: Call data (hex-encoded function selector and arguments)
+    SyncStatus:
+      type: object
+      description: Sync status returned by eth_syncing
+      properties:
+        startingBlock:
+          type: string
+          description: Block at which sync started (hex)
+        currentBlock:
+          type: string
+          description: Current block being processed (hex)
+        highestBlock:
+          type: string
+          description: Estimated highest block (hex)
+    FeeHistory:
+      type: object
+      description: Fee history returned by eth_feeHistory
+      properties:
+        oldestBlock:
+          type: string
+          description: Oldest block in the range (hex)
+        baseFeePerGas:
+          type: array
+          description: Base fee per gas for each block (hex)
+          items:
+            type: string
+        gasUsedRatio:
+          type: array
+          description: Gas used ratio (0 to 1) for each block
+          items:
+            type: number
+        reward:
+          type: array
+          description: Priority fee percentiles for each block
+          items:
+            type: array
+            items:
+              type: string
