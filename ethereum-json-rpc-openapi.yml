@@ -25,7 +25,7 @@ servers:
 paths:
   /:
     post:
-      summary: JSON-RPC endpoint
+      summary: Ethereum JSON-RPC endpoint
       description: >-
         All Ethereum JSON-RPC methods are invoked via POST to the root endpoint.
         The method name is specified in the JSON-RPC request body.
