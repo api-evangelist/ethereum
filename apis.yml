@@ -9,12 +9,12 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Ethereum
   - Blockchain
-  - Smart Contracts
-  - JSON-RPC
-  - Web3
   - DeFi
+  - Ethereum
+  - JSON-RPC
+  - Smart Contracts
+  - Web3
 url: https://ethereum.org
 created: '2025-01-01'
 modified: '2026-03-16'
