@@ -17,7 +17,7 @@ tags:
   - Web3
 url: https://ethereum.org
 created: '2025-01-01'
-modified: '2026-03-16'
+modified: '2026-04-28'
 position: Consumer
 access: 3rd-Party
 specificationVersion: '0.19'
@@ -36,7 +36,13 @@ apis:
     properties:
       - type: Documentation
         url: https://ethereum.org/en/developers/docs/apis/json-rpc/
+      - type: OpenAPI
+        url: openapi/ethereum-json-rpc-openapi.yml
 common:
+  - type: JSONSchema
+    url: json-schema/ethereum-json-rpc-schema.json
+  - type: JSON-LD
+    url: json-ld/ethereum-json-rpc-context.jsonld
   - type: Website
     url: https://ethereum.org
   - type: Documentation

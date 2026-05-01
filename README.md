@@ -16,7 +16,7 @@ Ethereum is a decentralized, open-source blockchain platform that supports smart
 ## Timestamps
 
 - **Created:** 2025-01-01 
-- **Modified:** 2026-03-16 
+- **Modified:** 2026-04-28 
 
 ## APIs
 
@@ -33,8 +33,12 @@ The standard JSON-RPC interface for interacting with Ethereum nodes, providing m
 #### Properties
 
 - [Documentation](https://ethereum.org/en/developers/docs/apis/json-rpc/)
+- [OpenAPI](openapi/ethereum-json-rpc-openapi.yml)
 
 ## Common Properties
+
+- [JSONSchema](json-schema/ethereum-json-rpc-schema.json)
+- [JSON-LD](json-ld/ethereum-json-rpc-context.jsonld)
 
 - [Website](https://ethereum.org)
 - [Documentation](https://ethereum.org/en/developers/docs/)
