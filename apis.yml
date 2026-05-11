@@ -51,6 +51,38 @@ common:
     url: https://ethereum.org/en/developers/
   - type: GitHubOrganization
     url: https://github.com/ethereum
+  - type: Integrations
+    url: https://ethereum.org/apps
+integrations:
+  - name: Aave Lending and borrowing
+  - name: Uniswap DEX
+  - name: Pendle RWA
+  - name: Zora Social network
+  - name: Rodeo Social network
+  - name: Towns Messaging
+  - name: Farcaster Social network · Messaging
+  - name: Orb Social network
+  - name: Rarimo Identity
+  - name: Railgun Shielded
+  - name: Privacy Pools Pools · Compliance
+  - name: OpenSea Market
+  - name: Blur Market
+  - name: Highlight Art
+  - name: Manifold Art
+  - name: Rarible Market
+  - name: EVE Frontier MMORPG
+  - name: Eureka RPG · Strategy · MMORPG
+  - name: Scout Game
+  - name: Eternum Multiplayer · Strategy · Onchain
+  - name: Gigaverse RPG · Casual
+  - name: ENS DNS · Identity
+  - name: Huddle01 Communication
+  - name: Livepeer Storage · Video
+  - name: ZK Passport Identity
+  - name: QuarkID Identity
+  - name: Particle Network Chain abstraction
+  - name: Layerswap Liquidity network
+  - name: Hop Liquidity network
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
