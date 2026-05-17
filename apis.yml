@@ -41,7 +41,7 @@ apis:
 common:
   - type: JSONSchema
     url: json-schema/ethereum-json-rpc-schema.json
-  - type: JSON-LD
+  - type: JSONLD
     url: json-ld/ethereum-json-rpc-context.jsonld
   - type: Website
     url: https://ethereum.org
