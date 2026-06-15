@@ -1,0 +1,112 @@
+{
+  "item": [
+    {
+      "id": "c2009155-4c14-4b12-9a8d-7dbae842048f",
+      "name": "Ethereum JSON-RPC endpoint",
+      "request": {
+        "name": "Ethereum JSON-RPC endpoint",
+        "description": {
+          "content": "All Ethereum JSON-RPC methods are invoked via POST to the root endpoint. The method name is specified in the JSON-RPC request body.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            ""
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"jsonrpc\": \"<string>\",\n  \"method\": \"<string>\",\n  \"id\": \"<integer>\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      },
+      "response": [
+        {
+          "id": "5900641b-dadf-45dd-8405-0b92fbb6d81d",
+          "name": "JSON-RPC response",
+          "originalRequest": {
+            "url": {
+              "path": [
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jsonrpc\": \"2.0\",\n  \"method\": \"eth_blockNumber\",\n  \"params\": [],\n  \"id\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"result\": \"0x10d4f\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "http://localhost:8545",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ec84e428-b792-493f-8146-ceea879dcd74",
+    "name": "Ethereum JSON-RPC API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Ethereum JSON-RPC API is the standard interface for interacting with Ethereum nodes. It provides methods for querying blockchain state, sending transactions, managing accounts, and interacting with smart contracts. All methods follow the JSON-RPC 2.0 specification over HTTP or WebSocket.\n\nContact Support:\n Name: Ethereum Foundation",
+      "type": "text/plain"
+    }
+  }
+}
