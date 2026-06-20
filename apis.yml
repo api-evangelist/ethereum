@@ -5,7 +5,7 @@ description: >-
   that run on its distributed network. It is the foundation for a vast ecosystem of decentralized applications (dApps),
   tokens, DeFi protocols, and NFTs, and uses a proof-of-stake consensus mechanism.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Blockchain
   - DeFi
