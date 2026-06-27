@@ -52,7 +52,7 @@ common:
     url: https://github.com/ethereum
   - type: Integrations
     url: https://ethereum.org/apps
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://ethereum.org/llms.txt
 integrations:
   - name: Aave Lending and borrowing
