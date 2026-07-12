@@ -36,6 +36,10 @@ apis:
       - type: OpenAPI
         url: openapi/ethereum-json-rpc-openapi.yml
 common:
+  - type: VulnerabilityDisclosure
+    url: security/ethereum-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/ethereum-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/ethereum-foundation
   - type: JSONSchema
@@ -54,6 +58,8 @@ common:
     url: https://ethereum.org/apps
   - type: LlmsText
     url: https://ethereum.org/llms.txt
+  - type: Blog
+    url: https://blog.ethereum.org/feed.xml
 integrations:
   - name: Aave Lending and borrowing
   - name: Uniswap DEX
