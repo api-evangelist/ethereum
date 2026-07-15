@@ -36,6 +36,8 @@ apis:
       - type: OpenAPI
         url: openapi/ethereum-json-rpc-openapi.yml
 common:
+  - type: AgenticAccess
+    url: agentic-access/ethereum-agentic-access.yml
   - type: VulnerabilityDisclosure
     url: security/ethereum-vulnerability-disclosure.yml
   - type: DomainSecurity
