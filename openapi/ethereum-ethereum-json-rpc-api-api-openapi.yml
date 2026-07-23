@@ -1,0 +1,346 @@
+openapi: 3.0.3
+info:
+  title: Ethereum JSON-RPC Ethereum JSON RPC API API
+  description: The Ethereum JSON-RPC API is the standard interface for interacting with Ethereum nodes. It provides methods for querying blockchain state, sending transactions, managing accounts, and interacting with smart contracts. All methods follow the JSON-RPC 2.0 specification over HTTP or WebSocket.
+  version: 1.0.0
+  contact:
+    name: Ethereum Foundation
+    url: https://ethereum.org
+  license:
+    name: CC0-1.0
+    url: https://creativecommons.org/publicdomain/zero/1.0/
+servers:
+- url: http://localhost:8545
+  description: Local Ethereum node (default Geth/Nethermind/Besu port)
+- url: https://mainnet.infura.io/v3/{apiKey}
+  description: Infura Mainnet
+  variables:
+    apiKey:
+      default: YOUR_API_KEY
+      description: Infura project API key
+tags:
+- name: Ethereum JSON RPC API
+paths:
+  /:
+    post:
+      summary: Ethereum JSON-RPC endpoint
+      description: All Ethereum JSON-RPC methods are invoked via POST to the root endpoint. The method name is specified in the JSON-RPC request body.
+      operationId: jsonRpcCall
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JsonRpcRequest'
+            examples:
+              eth_blockNumber:
+                summary: Get the latest block number
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_blockNumber
+                  params: []
+                  id: 1
+              eth_getBalance:
+                summary: Get account balance
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getBalance
+                  params:
+                  - '0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045'
+                  - latest
+                  id: 1
+              eth_call:
+                summary: Execute a call without creating a transaction
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_call
+                  params:
+                  - to: 0xContractAddress
+                    data: 0xFunctionSelector
+                  - latest
+                  id: 1
+              eth_sendRawTransaction:
+                summary: Send a signed transaction
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_sendRawTransaction
+                  params:
+                  - 0xSignedTransactionData
+                  id: 1
+              eth_getBlockByNumber:
+                summary: Get block by number
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getBlockByNumber
+                  params:
+                  - '0x1b4'
+                  - true
+                  id: 1
+              eth_getTransactionByHash:
+                summary: Get transaction by hash
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getTransactionByHash
+                  params:
+                  - 0xTransactionHash
+                  id: 1
+              eth_getTransactionReceipt:
+                summary: Get transaction receipt
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getTransactionReceipt
+                  params:
+                  - 0xTransactionHash
+                  id: 1
+              eth_getLogs:
+                summary: Get logs matching filter
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getLogs
+                  params:
+                  - fromBlock: '0x1'
+                    toBlock: latest
+                    address: 0xContractAddress
+                    topics:
+                    - 0xEventSignature
+                  id: 1
+              eth_estimateGas:
+                summary: Estimate gas for a transaction
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_estimateGas
+                  params:
+                  - to: 0xContractAddress
+                    data: 0xFunctionSelector
+                  id: 1
+              eth_gasPrice:
+                summary: Get current gas price
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_gasPrice
+                  params: []
+                  id: 1
+              eth_chainId:
+                summary: Get the chain ID
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_chainId
+                  params: []
+                  id: 1
+              eth_getCode:
+                summary: Get contract bytecode
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getCode
+                  params:
+                  - 0xContractAddress
+                  - latest
+                  id: 1
+              eth_getStorageAt:
+                summary: Get storage value at position
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getStorageAt
+                  params:
+                  - 0xContractAddress
+                  - '0x0'
+                  - latest
+                  id: 1
+              eth_getTransactionCount:
+                summary: Get account nonce
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_getTransactionCount
+                  params:
+                  - 0xAddress
+                  - latest
+                  id: 1
+              eth_feeHistory:
+                summary: Get historical fee data
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_feeHistory
+                  params:
+                  - '0x4'
+                  - latest
+                  - - 25
+                    - 75
+                  id: 1
+              eth_maxPriorityFeePerGas:
+                summary: Get suggested priority fee
+                value:
+                  jsonrpc: '2.0'
+                  method: eth_maxPriorityFeePerGas
+                  params: []
+                  id: 1
+              net_version:
+                summary: Get the network ID
+                value:
+                  jsonrpc: '2.0'
+                  method: net_version
+                  params: []
+                  id: 67
+              net_listening:
+                summary: Check if node is listening for connections
+                value:
+                  jsonrpc: '2.0'
+                  method: net_listening
+                  params: []
+                  id: 67
+              net_peerCount:
+                summary: Get number of connected peers
+                value:
+                  jsonrpc: '2.0'
+                  method: net_peerCount
+                  params: []
+                  id: 74
+              web3_clientVersion:
+                summary: Get the client version
+                value:
+                  jsonrpc: '2.0'
+                  method: web3_clientVersion
+                  params: []
+                  id: 67
+              web3_sha3:
+                summary: Compute Keccak-256 hash
+                value:
+                  jsonrpc: '2.0'
+                  method: web3_sha3
+                  params:
+                  - '0x68656c6c6f20776f726c64'
+                  id: 64
+      responses:
+        '200':
+          description: JSON-RPC response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JsonRpcResponse'
+              examples:
+                eth_blockNumber:
+                  summary: Block number response
+                  value:
+                    jsonrpc: '2.0'
+                    id: 1
+                    result: '0x10d4f'
+                eth_getBalance:
+                  summary: Balance response (in wei)
+                  value:
+                    jsonrpc: '2.0'
+                    id: 1
+                    result: '0x0234c8a3397aab58'
+                error:
+                  summary: Error response
+                  value:
+                    jsonrpc: '2.0'
+                    id: 1
+                    error:
+                      code: -32601
+                      message: Method not found
+      tags:
+      - Ethereum JSON RPC API
+components:
+  schemas:
+    JsonRpcResponse:
+      type: object
+      required:
+      - jsonrpc
+      - id
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+        result:
+          description: The result of the RPC call. Type varies by method. Quantities are hex-encoded integers. Data is hex-encoded bytes.
+        error:
+          $ref: '#/components/schemas/JsonRpcError'
+    JsonRpcRequest:
+      type: object
+      required:
+      - jsonrpc
+      - method
+      - id
+      properties:
+        jsonrpc:
+          type: string
+          enum:
+          - '2.0'
+          description: JSON-RPC protocol version
+        method:
+          type: string
+          description: The RPC method name. Ethereum methods include eth_*, net_*, and web3_* namespaces.
+          enum:
+          - web3_clientVersion
+          - web3_sha3
+          - net_version
+          - net_listening
+          - net_peerCount
+          - eth_protocolVersion
+          - eth_syncing
+          - eth_coinbase
+          - eth_chainId
+          - eth_mining
+          - eth_hashrate
+          - eth_gasPrice
+          - eth_maxPriorityFeePerGas
+          - eth_feeHistory
+          - eth_accounts
+          - eth_blockNumber
+          - eth_getBalance
+          - eth_getStorageAt
+          - eth_getTransactionCount
+          - eth_getBlockTransactionCountByHash
+          - eth_getBlockTransactionCountByNumber
+          - eth_getUncleCountByBlockHash
+          - eth_getUncleCountByBlockNumber
+          - eth_getCode
+          - eth_sign
+          - eth_signTransaction
+          - eth_sendTransaction
+          - eth_sendRawTransaction
+          - eth_call
+          - eth_estimateGas
+          - eth_getBlockByHash
+          - eth_getBlockByNumber
+          - eth_getTransactionByHash
+          - eth_getTransactionByBlockHashAndIndex
+          - eth_getTransactionByBlockNumberAndIndex
+          - eth_getTransactionReceipt
+          - eth_getUncleByBlockHashAndIndex
+          - eth_getUncleByBlockNumberAndIndex
+          - eth_newFilter
+          - eth_newBlockFilter
+          - eth_newPendingTransactionFilter
+          - eth_uninstallFilter
+          - eth_getFilterChanges
+          - eth_getFilterLogs
+          - eth_getLogs
+          - eth_createAccessList
+        params:
+          type: array
+          description: Method parameters
+          items: {}
+        id:
+          oneOf:
+          - type: integer
+          - type: string
+          description: Request identifier
+    JsonRpcError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: integer
+          description: Error code
+        message:
+          type: string
+          description: Error message
+        data:
+          description: Additional error data
