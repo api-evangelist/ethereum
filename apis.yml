@@ -5,7 +5,19 @@ description: >-
   that run on its distributed network. It is the foundation for a vast ecosystem of decentralized applications (dApps),
   tokens, DeFi protocols, and NFTs, and uses a proof-of-stake consensus mechanism.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Freemium
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ethereum.png
 tags:
   - Blockchain
   - DeFi
@@ -20,21 +32,17 @@ position: Consumer
 access: 3rd-Party
 specificationVersion: '0.19'
 apis:
-  - aid: ethereum:ethereum-json-rpc-api
-    name: Ethereum JSON-RPC API
-    description: >-
-      The standard JSON-RPC interface for interacting with Ethereum nodes, providing methods for querying blockchain
-      state, sending transactions, managing accounts, and interacting with smart contracts.
-    humanURL: https://ethereum.org/en/developers/docs/apis/json-rpc/
-    tags:
-      - Blockchain
-      - JSON-RPC
-      - Smart Contracts
-    properties:
-      - type: Documentation
-        url: https://ethereum.org/en/developers/docs/apis/json-rpc/
-      - type: OpenAPI
-        url: openapi/ethereum-json-rpc-openapi.yml
+- aid: ethereum:ethereum-ethereum-json-rpc-api-api
+  name: Ethereum Ethereum JSON RPC API API
+  description: The Ethereum JSON RPC API API from Ethereum — 1 operation(s) for ethereum json rpc api.
+  humanURL: https://ethereum.org/en/developers/docs/apis/json-rpc/
+  tags:
+  - Ethereum JSON RPC API
+  properties:
+  - type: OpenAPI
+    url: openapi/ethereum-ethereum-json-rpc-api-api-openapi.yml
+  - type: Documentation
+    url: https://ethereum.org/en/developers/docs/apis/json-rpc/
 common:
   - type: AgenticAccess
     url: agentic-access/ethereum-agentic-access.yml
