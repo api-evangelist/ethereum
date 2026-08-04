@@ -1,0 +1,14 @@
+{
+  "provider": "ethereum",
+  "sources": [
+    "ethereum-ethereum-json-rpc-api-api-openapi.yml"
+  ],
+  "outputs": [
+    "ethereum-ethereum-json-rpc-api-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
