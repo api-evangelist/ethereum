@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Ethereum JSON-RPC Ethereum JSON RPC API API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ethereum JSON RPC API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ethereum JSON-RPC endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:8545/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "All Ethereum JSON-RPC methods are invoked via POST to the root endpoint. The method name is specified in the JSON-RPC request body."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
