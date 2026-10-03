@@ -241,20 +241,6 @@ paths:
       - Ethereum JSON RPC API
 components:
   schemas:
-    JsonRpcError:
-      type: object
-      required:
-      - code
-      - message
-      properties:
-        code:
-          type: integer
-          description: Error code
-        message:
-          type: string
-          description: Error message
-        data:
-          description: Additional error data
     JsonRpcResponse:
       type: object
       required:
@@ -273,6 +259,20 @@ components:
           description: The result of the RPC call. Type varies by method. Quantities are hex-encoded integers. Data is hex-encoded bytes.
         error:
           $ref: '#/components/schemas/JsonRpcError'
+    JsonRpcError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: integer
+          description: Error code
+        message:
+          type: string
+          description: Error message
+        data:
+          description: Additional error data
     JsonRpcRequest:
       type: object
       required:
