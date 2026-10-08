@@ -55,6 +55,12 @@ apis:
   - type: Documentation
     url: https://ethereum.org/en/developers/docs/apis/json-rpc/
 common:
+- type: Plans
+  url: plans/ethereum-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/ethereum-rate-limits.yml
+- type: FinOps
+  url: finops/ethereum-finops.yml
 - type: AgenticAccess
   url: agentic-access/ethereum-agentic-access.yml
 - type: VulnerabilityDisclosure
