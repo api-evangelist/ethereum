@@ -87,6 +87,8 @@ common:
   url: https://ethereum.org/llms.txt
 - type: Blog
   url: https://blog.ethereum.org/feed.xml
+- type: SpectralRules
+  url: https://github.com/ethereum/remote-signing-api/blob/44e9e0dcc115c91f8b739684f4789a8310476bd9/.spectral.yml
 integrations:
 - name: Aave Lending and borrowing
 - name: Uniswap DEX
