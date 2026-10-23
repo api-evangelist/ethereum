@@ -46,38 +46,74 @@
     detected: '2026-10-20'
   status: not-a-workflow
   arazzo: null
-- slug: ethereum-openssf-best-practices-badge
-  label: OpenSSF Best Practices Badge
-  partner_name: OpenSSF Best Practices Badge
-  category: OpenSSF Best Practices badge (open-source project security conformance)
+- slug: ethereum-openssf-best-practices-badge-bestpractices-dev
+  label: OpenSSF Best Practices Badge (bestpractices.dev)
+  partner_name: OpenSSF Best Practices Badge (bestpractices.dev)
+  category: OpenSSF Best Practices badge (open-source project security practices)
   type: register
   channel: standard-directory
   evidence: https://www.bestpractices.dev/en/projects/10645
   source: edge
   relationship: standard-participant
   contract_reference:
-    register: OpenSSF Best Practices badge projects (bestpractices.dev/en/projects.json, paged)
-    standard: OpenSSF Best Practices Badge criteria (formerly CII Best Practices; bestpractices.dev)
+    register: OpenSSF Best Practices Badge projects (www.bestpractices.dev/en/projects.json)
+    standard: OpenSSF Best Practices Badge criteria (passing / silver / gold)
     spec_file: null
-    role: badge-holder
+    role: badged-project-owner
     registered_name: go-ethereum
+    matched_domain: ethereum.org
     matched_by: domain
-    matched_on: ethereum.org
     certified_products:
     - product: open-source project
       product_type: open-source project
-      standard: OpenSSF Best Practices Badge criteria (formerly CII Best Practices; bestpractices.dev)
-      lapsed: false
+      standard: OpenSSF Best Practices Badge criteria (passing / silver / gold)
       partner_tier: passing
-      projects:
-      - name: go-ethereum
-        id: 10645
-        url: https://www.bestpractices.dev/en/projects/10645
-        badge_level: passing
-    signal_note: 'certified_products = ONE entry (product type: open-source project) with the highest CURRENT badge
-      level in partner_tier; a provider whose projects only lost the badge is lapsed: true; project names are context,
-      never counted; in_progress entries are not conformance'
+      lapsed: false
+      badge_date: '2025-05-26'
+    badged_projects:
+    - name: go-ethereum
+      id: 10645
+      badge: passing
+      url: https://www.bestpractices.dev/en/projects/10645
+    signal_note: 'certified_products = ONE entry per provider (product type open-source project): highest current
+      OpenSSF Best Practices badge level in partner_tier, earliest date at that level; lapsed: true when every linked
+      project lost its badge. badged_projects is context, never counted'
     detected_by: sweep-openssf-best-practices-badges.py
+    detected: '2026-10-22'
+  status: not-a-workflow
+  arazzo: null
+- slug: ethereum-lf-decentralized-trust-membership-landscape
+  label: LF Decentralized Trust (membership / landscape)
+  partner: lf-decentralized-trust
+  partner_name: LF Decentralized Trust (membership / landscape)
+  category: LF Decentralized Trust landscape listing
+  type: register
+  channel: standard-directory
+  evidence: https://landscape.lfdecentralizedtrust.org
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: LF Decentralized Trust Landscape (landscape.lfdecentralizedtrust.org/data/full.json)
+    spec_file: null
+    standard: LF Decentralized Trust
+    role: landscape-listed
+    registered_name: Ethereum
+    registered_names:
+    - ERC
+    - Ethereum
+    - Solidity
+    - Vyper
+    website: https://ethereum.org/en
+    matched_domain: ethereum.org
+    matched_by: domain
+    landscape_categories:
+    - Distributed Ledgers / Permissionless
+    - Smart Contracts/Tokenization / Digital token frameworks
+    - Smart Contracts/Tokenization / Smart contract languages/execution environments
+    landscape_entries: 4
+    signal_note: 'participation only: LFDT membership / a landscape listing is standard-participant evidence, not
+      depth. Tier, entries and categories are CONTEXT, never counted'
+    detected_by: sweep-lf-decentralized-trust-landscape.py
     detected: '2026-10-22'
   status: not-a-workflow
   arazzo: null

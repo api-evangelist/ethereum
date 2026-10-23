@@ -96,6 +96,40 @@ edges:
     detected: '2026-10-22'
   detected_by: sweep-openssf-best-practices-badges.py
   first_seen: '2026-10-22'
+- partner_name: LF Decentralized Trust (membership / landscape)
+  partner: lf-decentralized-trust
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: LF Decentralized Trust landscape listing
+  evidence: https://landscape.lfdecentralizedtrust.org
+  channel: standard-directory
+  relationship: standard-participant
+  contract_reference:
+    register: LF Decentralized Trust Landscape (landscape.lfdecentralizedtrust.org/data/full.json)
+    spec_file: null
+    standard: LF Decentralized Trust
+    role: landscape-listed
+    registered_name: Ethereum
+    registered_names:
+    - ERC
+    - Ethereum
+    - Solidity
+    - Vyper
+    website: https://ethereum.org/en
+    matched_domain: ethereum.org
+    matched_by: domain
+    landscape_categories:
+    - Distributed Ledgers / Permissionless
+    - Smart Contracts/Tokenization / Digital token frameworks
+    - Smart Contracts/Tokenization / Smart contract languages/execution environments
+    landscape_entries: 4
+    signal_note: 'participation only: LFDT membership / a landscape listing is standard-participant evidence, not
+      depth. Tier, entries and categories are CONTEXT, never counted'
+    detected_by: sweep-lf-decentralized-trust-landscape.py
+    detected: '2026-10-22'
+  detected_by: sweep-lf-decentralized-trust-landscape.py
+  first_seen: '2026-10-22'
 generated: '2026-10-20'
 method: searched
 source:
@@ -103,14 +137,14 @@ source:
 checked:
 - https://api.github.com
 - https://claude-plugins.dev/sitemap.xml
-- https://github.com/LF-Decentralized-Trust-labs
 - https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
+- https://www.bestpractices.dev/en/projects.json
+- https://www.bestpractices.dev/en/projects.json?page=N
+- https://github.com/LF-Decentralized-Trust-labs
 - https://github.com/canton-network/splice
 - https://github.com/hyperledger
 - https://landscape.lfdecentralizedtrust.org
 - https://landscape.lfdecentralizedtrust.org/data/full.json
-- https://officialskills.sh/sitemap.xml
-- https://skillsmp.com/sitemap.xml
-- https://www.bestpractices.dev/en/projects.json
-- https://www.bestpractices.dev/en/projects.json?page=N
-- https://www.skills.sh/sitemap.xml
